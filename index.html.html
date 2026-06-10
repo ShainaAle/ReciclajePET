@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FASE 2 - El Reciclaje del PET - Grupo 206</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        petBlue: '#93c5fd',      // Azul cielo principal
+                        petIce: '#e0f2fe',       // Azul hielo suave para fondos
+                        petNavy: '#1e3a8a',      // Azul marino profundo para contrastes
+                        petElectric: '#0284c7',  // Azul brillante para llamadas a la acción
+                        petIndigo: '#c7d2fe',    // Azul índigo claro
+                        petPink: '#fbcfe8',      // Rosa suave (acento de narrativa)
+                        petYellow: '#fef08a',    // Amarillo suave (acento de narrativa)
+                        slateDark: '#0f172a'     // Slate oscuro para textos legibles
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f8fafc; /* Fondo azul grisáceo muy limpio */
+        }
+        h1, h2, h3, h4, .font-funky {
+            font-family: 'Fredoka', sans-serif;
+        }
+        /* Estilo lomo de carpeta escolar con anillas */
+        .binder-spine {
+            background-image: linear-gradient(to bottom, #cbd5e1 10%, #94a3b8 20%, #cbd5e1 30%, #94a3b8 40%, #cbd5e1 50%, #94a3b8 60%, #cbd5e1 70%, #94a3b8 80%, #cbd5e1 90%);
+        }
+    </style>
+</head>
+<body class="text-slate-700 antialiased selection:bg-petBlue selection:text-petNavy">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b-2 border-slate-200 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-petIce flex items-center justify-center text-petNavy border-2 border-slate-800 shadow-sm">
+                    <i class="fa-solid fa-droplet text-lg"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-slate-800 text-sm sm:text-base block tracking-tight uppercase">EL RECICLAJE DEL PET</span>
+                    <span class="text-xs text-slate-500 font-medium block -mt-1">Grupo 206 • Fase 2, 3 & 4</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-5">
+                <a href="#conceptos" class="text-xs font-bold text-slate-600 hover:text-petNavy uppercase transition-all">Conceptos</a>
+                <a href="#narrativas" class="text-xs font-bold text-slate-600 hover:text-petNavy uppercase transition-all">Narrativas</a>
+                <a href="#diagnostico" class="text-xs font-bold text-slate-600 hover:text-petNavy uppercase transition-all">Diagnóstico</a>
+                <a href="#antologia" class="text-xs font-bold text-slate-600 hover:text-petNavy uppercase transition-all">Antología</a>
+                <a href="#encuesta" class="text-xs font-bold text-white bg-petElectric border-2 border-slate-800 px-4 py-2 rounded-xl hover:bg-sky-700 transition-all shadow-md flex items-center gap-1.5">
+                    <i class="fa-solid fa-clipboard-question"></i> Encuesta Interactiva
+                </a>
+            </div>
+
+            <!-- Botón Móvil Encuesta -->
+            <a href="#encuesta" class="md:hidden text-xs font-bold text-white bg-petElectric border-2 border-slate-800 px-3 py-1.5 rounded-xl flex items-center gap-1">
+                <i class="fa-solid fa-chart-line"></i> Datos
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION / PORTADA DE PROYECTO -->
+    <header class="relative bg-gradient-to-b from-sky-50 via-sky-100/40 to-white pt-10 pb-16 border-b-4 border-slate-200 overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-petBlue/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-petIce/60 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 text-center space-y-6">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-petIndigo border-2 border-slate-800 text-slate-800 text-xs font-bold uppercase tracking-wide">
+                <i class="fa-solid fa-graduation-cap"></i> Proyecto de Cultura Digital
+            </span>
+            
+            <h1 class="text-4xl sm:text-6xl font-black text-slate-800 leading-none tracking-tight">
+                EL RECICLAJE <br class="sm:hidden">DEL <span class="text-petElectric underline decoration-petBlue decoration-wavy">PET</span>
+            </h1>
+            
+            <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto">
+                Un análisis ambiental comunitario y comparativa de narrativas de TICCAD libres para educar, concientizar y proponer soluciones al problema ecológico del plástico.
+            </p>
+
+            <!-- Tarjeta Integrantes de Grupo 206 -->
+            <div class="bg-white rounded-3xl border-4 border-slate-800 p-6 shadow-[6px_6px_0px_0px_rgba(30,41,59,1)] max-w-3xl mx-auto mt-8">
+                <p class="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-4"><i class="fa-solid fa-users"></i> Equipo de Investigación - Grupo 206</p>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                    <div class="bg-petPink/30 p-3 rounded-2xl border-2 border-slate-800 text-center hover:scale-105 transition-transform">
+                        <span class="text-xl block">👧</span>
+                        <p class="text-[11px] font-bold text-slate-800">Ashlyn Ximena</p>
+                        <p class="text-[9px] text-slate-500">Mendoza G.</p>
+                    </div>
+                    <!-- MICHEL CORRECTO COMO NIÑO -->
+                    <div class="bg-petBlue/30 p-3 rounded-2xl border-2 border-slate-800 text-center hover:scale-105 transition-transform">
+                        <span class="text-xl block">👦</span>
+                        <p class="text-[11px] font-bold text-slate-800">Michel</p>
+                        <p class="text-[9px] text-slate-500">Idarza H.</p>
+                    </div>
+                    <div class="bg-petYellow/30 p-3 rounded-2xl border-2 border-slate-800 text-center hover:scale-105 transition-transform">
+                        <span class="text-xl block">👧</span>
+                        <p class="text-[11px] font-bold text-slate-800">Yaretzi América</p>
+                        <p class="text-[9px] text-slate-500">Sánchez L.</p>
+                    </div>
+                    <div class="bg-petIndigo/30 p-3 rounded-2xl border-2 border-slate-800 text-center hover:scale-105 transition-transform">
+                        <span class="text-xl block">👧</span>
+                        <p class="text-[11px] font-bold text-slate-800">Marisol</p>
+                        <p class="text-[9px] text-slate-500">Velázquez R.</p>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 bg-sky-200/40 p-3 rounded-2xl border-2 border-slate-800 text-center hover:scale-105 transition-transform flex flex-col justify-center items-center">
+                        <span class="text-xl block">👦</span>
+                        <p class="text-[11px] font-bold text-slate-800">Alonzo</p>
+                        <p class="text-[9px] text-slate-500">Galarza</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECCIÓN 1: CONCEPTOS BÁSICOS & TICCAD -->
+    <section id="conceptos" class="py-16 bg-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-12 space-y-2">
+                <span class="text-xs font-bold text-petElectric uppercase tracking-widest bg-sky-50 px-3 py-1 rounded-full">Fase 2: Fundamentos</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">Conceptos Clave de Cultura Digital</h2>
+                <p class="text-slate-500 text-xs sm:text-sm max-w-xl mx-auto">Comprendiendo los pilares para el desarrollo de contenidos y el diagnóstico ambiental colaborativo.</p>
+            </div>
+
+            <!-- Grid de Tarjetas Conceptuales -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                
+                <div class="bg-sky-50 rounded-2xl border-2 border-slate-800 p-5 space-y-3 relative overflow-hidden group shadow-sm">
+                    <div class="w-10 h-10 rounded-xl bg-petBlue flex items-center justify-center border-2 border-slate-800 text-slate-800">
+                        <i class="fa-solid fa-laptop-code text-petNavy"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wide">TICCAD Libres</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Herramientas gratuitas, de acceso abierto, que permiten crear y compartir contenido digital de forma colaborativa sin barreras.</p>
+                </div>
+
+                <div class="bg-blue-50 rounded-2xl border-2 border-slate-800 p-5 space-y-3 relative overflow-hidden group shadow-sm">
+                    <div class="w-10 h-10 rounded-xl bg-petIce flex items-center justify-center border-2 border-slate-800 text-slate-800">
+                        <i class="fa-solid fa-feather-pointed text-petElectric"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wide">Narrativa Ambiental</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Textos, cuentos o materiales multimedia diseñados para informar, explicar y promover de forma directa el cuidado del entorno natural.</p>
+                </div>
+
+                <div class="bg-indigo-50 rounded-2xl border-2 border-slate-800 p-5 space-y-3 relative overflow-hidden group shadow-sm">
+                    <div class="w-10 h-10 rounded-xl bg-petIndigo flex items-center justify-center border-2 border-slate-800 text-slate-800">
+                        <i class="fa-solid fa-shield-heart text-indigo-700"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wide">Confiabilidad</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Atributo que certifica la veracidad de la información, el respaldo de datos duros y el uso de fuentes de consulta seguras.</p>
+                </div>
+
+                <div class="bg-slate-100 rounded-2xl border-2 border-slate-800 p-5 space-y-3 relative overflow-hidden group shadow-sm">
+                    <div class="w-10 h-10 rounded-xl bg-slate-300 flex items-center justify-center border-2 border-slate-800 text-slate-800">
+                        <i class="fa-solid fa-sitemap text-slate-700"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wide">Estructura Lógica</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Organización ordenada y comprensible de las ideas en tres grandes bloques: introducción, desarrollo y conclusión.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 2: COMPARACIÓN DE NARRATIVAS (DASHBOARD DINÁMICO) -->
+    <section id="narrativas" class="py-16 bg-slate-100 border-y-2 border-slate-200">
+        <div class="max-w-5xl mx-auto px-4">
+            
+            <div class="text-center mb-10 space-y-2">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest bg-slate-200 px-3 py-1 rounded-full">TICCAD Libres</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">Comparativa de Formatos y Medios</h2>
+                <p class="text-slate-500 text-xs sm:text-sm max-w-xl mx-auto">¿Cómo cambia la información ambiental según la herramienta digital que decidamos utilizar?</p>
+            </div>
+
+            <!-- Grid Interactivo de Narrativas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                
+                <!-- Card Informativa -->
+                <div class="bg-white rounded-3xl border-2 border-slate-800 p-6 flex flex-col justify-between hover:translate-y-[-4px] transition-all shadow-sm">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-black uppercase text-pink-700 bg-petPink/50 px-2.5 py-1 rounded-md border border-pink-300">Google Docs</span>
+                            <span class="text-xs text-slate-400">Informativa</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Narrativa Informativa</h3>
+                        <p class="text-xs text-slate-500">Ordenada, formal y sistemática. Ideal para definir problemas, analizar consecuencias y estructurar soluciones de forma objetiva.</p>
+                        
+                        <div class="space-y-2 pt-2 border-t border-slate-100 text-xs">
+                            <p><strong><i class="fa-solid fa-list-check text-slate-400 mr-1"></i> Confiabilidad:</strong> Alta (Usa datos y referencias verificadas).</p>
+                            <p><strong><i class="fa-solid fa-quote-left text-slate-400 mr-1"></i> Ejemplo:</strong> <em>"El plástico PET tarda aproximadamente 500 años en degradarse por completo."</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Colaborativa -->
+                <div class="bg-white rounded-3xl border-2 border-slate-800 p-6 flex flex-col justify-between hover:translate-y-[-4px] transition-all shadow-sm">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-black uppercase text-yellow-700 bg-petYellow/50 px-2.5 py-1 rounded-md border border-yellow-300">Padlet / Wikis</span>
+                            <span class="text-xs text-slate-400">Colaborativa</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Narrativa Colaborativa</h3>
+                        <p class="text-xs text-slate-500">Abierta, flexible y dinámica. Se construye con la suma de ideas, vivencias directas, opiniones de la comunidad y aportes continuos.</p>
+                        
+                        <div class="space-y-2 pt-2 border-t border-slate-100 text-xs">
+                            <p><strong><i class="fa-solid fa-list-check text-slate-400 mr-1"></i> Confiabilidad:</strong> Buena (Contraste colectivo pero sin citas formales).</p>
+                            <p><strong><i class="fa-solid fa-quote-left text-slate-400 mr-1"></i> Ejemplo:</strong> <em>"En mi familia empezamos a recolectar todos los envases de refresco para llevarlos al centro de acopio."</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Multimedia -->
+                <div class="bg-white rounded-3xl border-2 border-slate-800 p-6 flex flex-col justify-between hover:translate-y-[-4px] transition-all shadow-sm">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-black uppercase text-sky-700 bg-sky-100 px-2.5 py-1 rounded-md border border-sky-300">Canva</span>
+                            <span class="text-xs text-slate-400">Multimedia</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Narrativa Multimedia</h3>
+                        <p class="text-xs text-slate-500">Esquemática, visual y atractiva. Utiliza imágenes potentes, infografías y frases resumidas para lograr una rápida asimilación.</p>
+                        
+                        <div class="space-y-2 pt-2 border-t border-slate-100 text-xs">
+                            <p><strong><i class="fa-solid fa-list-check text-slate-400 mr-1"></i> Confiabilidad:</strong> Media (La información está muy simplificada).</p>
+                            <p><strong><i class="fa-solid fa-quote-left text-slate-400 mr-1"></i> Ejemplo:</strong> <em>"¡El planeta necesita que actúes hoy! Reduce, recicla y salva."</em></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Selector de Matriz Comparativa (Oral vs Escrita vs Digital) -->
+            <div class="bg-white rounded-3xl border-2 border-slate-800 p-6 shadow-sm space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b-2 border-slate-100 pb-4">
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-base">La Evolución de la Narración Ecológica</h4>
+                        <p class="text-xs text-slate-400">Analiza cómo cambia una historia ambiental según el medio de transmisión</p>
+                    </div>
+                    <!-- Pestañas interactivas -->
+                    <div class="flex bg-slate-100 p-1 rounded-xl border border-slate-200">
+                        <button onclick="switchVersionTab('oral')" id="v-tab-oral" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-white text-slate-800 shadow-sm">Oral</button>
+                        <button onclick="switchVersionTab('escrita')" id="v-tab-escrita" class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-600 hover:text-slate-800">Escrita</button>
+                        <button onclick="switchVersionTab('digital')" id="v-tab-digital" class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-600 hover:text-slate-800">Digital</button>
+                    </div>
+                </div>
+
+                <!-- Bloque de detalles de la pestaña seleccionada -->
+                <div id="v-content-area" class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    
+                    <!-- Lado Izquierdo: Características -->
+                    <div class="space-y-4">
+                        <div class="space-y-1">
+                            <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Forma de Transmisión</span>
+                            <p id="v-transmision" class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+                                Se cuenta de persona a persona, en reuniones, conversaciones o tradiciones familiares. Usa la voz, gestos y tono emocional para dar vida a la historia.
+                            </p>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Características Principales</span>
+                            <p id="v-caract" class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                Es flexible y cambiante. Cada narrador puede adaptar detalles, añadir anécdotas o cambiar el tono según el público asistente.
+                            </p>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Propósito Principal</span>
+                            <p id="v-proposito" class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                Transmitir cultura, valores y tradiciones; crear lazos estrechos y educar sobre la naturaleza de manera directa y cálida.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Lado Derecho: Pros y Contras en Tarjeta de Visualización -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border-2 border-slate-200 space-y-4">
+                        <div class="flex gap-3">
+                            <div class="w-8 h-8 rounded-full bg-emerald-100 border border-emerald-300 flex items-center justify-center text-emerald-700 text-xs"><i class="fa-solid fa-circle-check"></i></div>
+                            <div>
+                                <h5 class="text-xs font-black uppercase text-emerald-800 tracking-wider">Ventajas</h5>
+                                <p id="v-ventajas" class="text-xs text-slate-600 leading-relaxed">Es emotiva, genera conexión social directa, se asimila con facilidad y mantiene vivas las tradiciones orales.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="w-8 h-8 rounded-full bg-rose-100 border border-rose-300 flex items-center justify-center text-rose-700 text-xs"><i class="fa-solid fa-circle-xmark"></i></div>
+                            <div>
+                                <h5 class="text-xs font-black uppercase text-rose-800 tracking-wider">Desventajas</h5>
+                                <p id="v-desventajas" class="text-xs text-slate-600 leading-relaxed">Puede olvidarse, deformarse o modificarse demasiado con el paso de las generaciones al no quedar registrada.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN 3: DIAGNÓSTICO AMBIENTAL LOCAL INTERACTIVO (PERSONAJES) -->
+    <section id="diagnostico" class="py-16 bg-white">
+        <div class="max-w-5xl mx-auto px-4">
+            
+            <div class="text-center mb-12 space-y-2">
+                <span class="text-xs font-bold text-petElectric uppercase tracking-widest bg-sky-50 px-3 py-1 rounded-full">Fase 3: Diagnóstico</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">Diagnóstico Ambiental en la Localidad</h2>
+                <p class="text-slate-500 text-xs sm:text-sm max-w-xl mx-auto">Explora el testimonio y diagnóstico de los distintos sectores sociales que conviven y sufren la situación ecológica local.</p>
+            </div>
+
+            <!-- Simulador de Testimonios / Personajes -->
+            <div class="bg-slate-50 rounded-[2.5rem] border-4 border-slate-800 shadow-[6px_6px_0px_0px_rgba(30,41,59,1)] overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+                    
+                    <!-- Lado de Selección (Personajes) -->
+                    <div class="lg:col-span-5 bg-slate-100 border-b-2 lg:border-b-0 lg:border-r-2 border-slate-800 p-6 space-y-4">
+                        <h4 class="font-bold text-sm uppercase tracking-wider text-slate-500">Sectores Encuestados</h4>
+                        
+                        <div class="space-y-3">
+                            
+                            <!-- Personaje 1 -->
+                            <button onclick="switchDiagnostico('vecino')" id="btn-diag-vecino" class="w-full text-left p-3.5 rounded-2xl border-2 border-slate-800 bg-sky-200/60 hover:bg-sky-200 transition-all flex items-center gap-3 shadow-sm">
+                                <span class="text-2xl">🏡</span>
+                                <div>
+                                    <p class="text-xs font-extrabold text-slate-900 uppercase">Vecino Local</p>
+                                    <p class="text-[10px] text-slate-600">"Acumulación de basura en calles"</p>
+                                </div>
+                            </button>
+
+                            <!-- Personaje 2 -->
+                            <button onclick="switchDiagnostico('estudiante')" id="btn-diag-estudiante" class="w-full text-left p-3.5 rounded-2xl border-2 border-slate-200 bg-white hover:bg-slate-50 transition-all flex items-center gap-3 shadow-sm">
+                                <span class="text-2xl">🎒</span>
+                                <div>
+                                    <p class="text-xs font-extrabold text-slate-900 uppercase">Estudiante Activo</p>
+                                    <p class="text-[10px] text-slate-600">"El río y los canales limpios"</p>
+                                </div>
+                            </button>
+
+                            <!-- Personaje 3 -->
+                            <button onclick="switchDiagnostico('agricultor')" id="btn-diag-agricultor" class="w-full text-left p-3.5 rounded-2xl border-2 border-slate-200 bg-white hover:bg-slate-50 transition-all flex items-center gap-3 shadow-sm">
+                                <span class="text-2xl">👩‍🌾</span>
+                                <div>
+                                    <p class="text-xs font-extrabold text-slate-900 uppercase">Agricultor de la Zona</p>
+                                    <p class="text-[10px] text-slate-600">"Huertos y desborde por botellas"</p>
+                                </div>
+                            </button>
+
+                            <!-- Personaje 4 -->
+                            <button onclick="switchDiagnostico('trabajador')" id="btn-diag-trabajador" class="w-full text-left p-3.5 rounded-2xl border-2 border-slate-200 bg-white hover:bg-slate-50 transition-all flex items-center gap-3 shadow-sm">
+                                <span class="text-2xl">🧹</span>
+                                <div>
+                                    <p class="text-xs font-extrabold text-slate-900 uppercase">Trabajador de Limpieza</p>
+                                    <p class="text-[10px] text-slate-600">"Reciclaje y separación de botellas"</p>
+                                </div>
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <!-- Lado de Contenido del Personaje -->
+                    <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between min-h-[300px]">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3">
+                                <span id="diag-badge-icon" class="w-10 h-10 rounded-full bg-sky-200 flex items-center justify-center text-lg border-2 border-slate-800">🏡</span>
+                                <div>
+                                    <h4 id="diag-badge-title" class="font-extrabold text-slate-900 text-sm uppercase">Vecino Local</h4>
+                                    <span id="diag-badge-subtitle" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Enfoque: Residuos en el Barrio</span>
+                                </div>
+                            </div>
+                            
+                            <hr class="border-slate-200">
+
+                            <!-- Testimonio del personaje -->
+                            <p id="diag-testimonio" class="text-xs sm:text-sm text-slate-600 italic leading-relaxed">
+                                "La acumulación de basura en las calles y áreas verdes de nuestra colonia nos afecta diariamente, ya que no solo daña la imagen de los parques, sino que genera olores fétidos y plagas de gusanos en temporada de calor."
+                            </p>
+                        </div>
+
+                        <!-- Solución propuesta por el personaje -->
+                        <div class="mt-6 p-4 rounded-xl bg-slate-900 text-slate-100 border border-slate-800 space-y-1.5">
+                            <p class="text-[10px] font-black uppercase text-sky-400 tracking-wider"><i class="fa-solid fa-lightbulb"></i> Solución Propuesta:</p>
+                            <p id="diag-propuesta" class="text-xs">Colocación urgente de botes separados en los parques vecinales y organizar jornadas comunitarias los fines de semana.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Panel de Respuestas del Cuestionario Escolar -->
+            <div class="mt-12 bg-white rounded-3xl border-2 border-slate-800 p-6 space-y-4 shadow-sm">
+                <h4 class="font-bold text-slate-800 text-base border-b border-slate-100 pb-2">Respuestas de la Entrevista Comunitaria</h4>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-sky-50 rounded-2xl border-2 border-slate-200 space-y-1.5">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">¿Cuáles son los recursos naturales más importantes?</span>
+                        <p class="text-xs text-slate-700 leading-relaxed"><strong>Respuesta:</strong> El agua de los ríos, la vegetación y el aire puro. El agua se utiliza diariamente para todo: cocinar, limpieza doméstica, riego agrícola y saneamiento personal.</p>
+                    </div>
+
+                    <div class="p-4 bg-indigo-50 rounded-2xl border-2 border-slate-200 space-y-1.5">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">¿Cómo influyen el clima y sus cambios?</span>
+                        <p class="text-xs text-slate-700 leading-relaxed"><strong>Respuesta:</strong> Al llover con exceso, las calles principales se inundan de inmediato. En sequías prolongadas, la vegetación y las plantas se marchitan, impidiendo trabajar con comodidad.</p>
+                    </div>
+
+                    <div class="p-4 bg-slate-100 rounded-2xl border-2 border-slate-200 space-y-1.5">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">¿Qué flora y fauna típica hay en la zona?</span>
+                        <p class="text-xs text-slate-700 leading-relaxed"><strong>Respuesta:</strong> El mezquite y la palma como vegetación nativa. Animales comunes como lagartijas, aves silvestres, perros y gatos, los cuales están en buen estado porque la comunidad los protege.</p>
+                    </div>
+
+                    <div class="p-4 bg-sky-50 rounded-2xl border-2 border-slate-200 space-y-1.5">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">¿Qué servicios de infraestructura hacen falta?</span>
+                        <p class="text-xs text-slate-700 leading-relaxed"><strong>Respuesta:</strong> Contenedores públicos bien identificados para separar la basura, plantas de tratamiento de agua y una recolección de basura mucho más constante.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN 4: ANTOLOGÍA VERDE DIGITAL (CARPETA ESCOLAR INTERACTIVA) -->
+    <section id="antologia" class="py-16 bg-slate-100 border-t-2 border-slate-200">
+        <div class="max-w-5xl mx-auto px-4">
+            
+            <div class="text-center mb-12 space-y-2">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest bg-slate-200 px-3 py-1 rounded-full">Antología Digital</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">Antología Verde Escolar</h2>
+                <p class="text-slate-500 text-xs sm:text-sm max-w-xl mx-auto">Nuestros cuentos, relatos y leyendas tradicionales redactados de forma colaborativa para sensibilizar el corazón ecológico.</p>
+            </div>
+
+            <!-- Interfaz Carpeta de Anillas -->
+            <div class="bg-white rounded-[2rem] border-4 border-slate-800 shadow-[6px_6px_0px_0px_rgba(30,41,59,1)] overflow-hidden relative">
+                
+                <!-- Lomo de la Carpeta Escolar -->
+                <div class="absolute left-0 top-0 bottom-0 w-8 binder-spine hidden sm:flex flex-col justify-around py-10 items-center border-r-4 border-slate-800">
+                    <div class="w-4 h-4 rounded-full bg-slate-100 border-2 border-slate-700 shadow-inner"></div>
+                    <div class="w-4 h-4 rounded-full bg-slate-100 border-2 border-slate-700 shadow-inner"></div>
+                    <div class="w-4 h-4 rounded-full bg-slate-100 border-2 border-slate-700 shadow-inner"></div>
+                    <div class="w-4 h-4 rounded-full bg-slate-100 border-2 border-slate-700 shadow-inner"></div>
+                </div>
+
+                <!-- Contenedor del Libro -->
+                <div class="sm:pl-12 flex flex-col md:flex-row min-h-[460px]">
+                    
+                    <!-- Menú Lateral del Libro -->
+                    <div class="w-full md:w-1/3 bg-stone-50 border-b-2 md:border-b-0 md:border-r-2 border-slate-800 p-4 space-y-2">
+                        <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider block mb-2 px-2">Selecciona un Relato</span>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-1 gap-2">
+                            <button onclick="switchStory(1)" id="btn-story-1" class="text-left py-2 px-3.5 rounded-xl border-2 border-slate-800 bg-sky-200 text-xs font-extrabold text-slate-900 transition-all flex items-center gap-2">
+                                🌲 <span>Tata Árbol</span>
+                            </button>
+                            <button onclick="switchStory(2)" id="btn-story-2" class="text-left py-2 px-3.5 rounded-xl border-2 border-slate-200 bg-white text-xs font-bold text-slate-600 transition-all flex items-center gap-2">
+                                🌊 <span>El río sin voz</span>
+                            </button>
+                            <button onclick="switchStory(3)" id="btn-story-3" class="text-left py-2 px-3.5 rounded-xl border-2 border-slate-200 bg-white text-xs font-bold text-slate-600 transition-all flex items-center gap-2">
+                                🔄 <span>La botella renovada</span>
+                            </button>
+                            <button onclick="switchStory(4)" id="btn-story-4" class="text-left py-2 px-3.5 rounded-xl border-2 border-slate-200 bg-white text-xs font-bold text-slate-600 transition-all flex items-center gap-2">
+                                🌎 <span>Madre Tierra</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hoja del Libro / Lectura interactiva -->
+                    <div class="w-full md:w-2/3 p-6 sm:p-8 flex flex-col justify-between h-full bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px]">
+                        
+                        <!-- Texto del Relato -->
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span id="story-origin" class="text-[10px] font-black uppercase text-sky-800 bg-sky-100 px-3 py-1 rounded-full">Tradición de América Latina</span>
+                                <span class="text-xs text-slate-400"><i class="fa-solid fa-book-open"></i> Leyenda</span>
+                            </div>
+                            
+                            <h3 id="story-title" class="text-xl sm:text-2xl font-black text-slate-800">El Guardián del Bosque: Tata Árbol</h3>
+                            
+                            <p id="story-body" class="text-xs sm:text-sm text-slate-600 leading-relaxed italic">
+                                "Se cuenta que en medio de una selva inmensa, vivía Tata Árbol. Tenía el cuerpo formado por raíces y ramas, su cabello era una espesa copa de hojas verdes y sus ojos brillaban entre la maleza. Era el guardián de la selva entera... Quienes tomaban solo frutos y madera que necesitaban eran bien recibidos. En cambio, quienes llegaban con avaricia para quemar o contaminar ríos eran castigados, haciéndolos perderse entre los laberintos de vegetación."
+                            </p>
+                        </div>
+
+                        <!-- Cuadro de la Enseñanza Destacada -->
+                        <div class="mt-6 pt-4 border-t border-slate-200">
+                            <div class="bg-sky-50 rounded-2xl p-4 border-2 border-slate-800 shadow-sm flex items-start gap-3">
+                                <span class="text-2xl">💡</span>
+                                <div>
+                                    <h5 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider">Enseñanza Ecológica</h5>
+                                    <p id="story-teaching" class="text-xs text-slate-700 leading-relaxed">"El bosque no es solo un conjunto inerte de plantas, es un ser vivo que nos da la existencia; protegerlo es salvaguardar nuestra propia vida."</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN 5: ENCUESTA DIGITAL INTERACTIVA & LIVE CHART COMPARATOR (FASE 4) -->
+    <section id="encuesta" class="py-16 bg-white">
+        <div class="max-w-5xl mx-auto px-4">
+            
+            <div class="text-center mb-12 space-y-2">
+                <span class="text-xs font-bold text-petElectric uppercase tracking-widest bg-sky-50 px-3 py-1 rounded-full">Fase 4: Recolección y Datos</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">Encuesta Digital & Estadísticas Reales</h2>
+                <p class="text-slate-500 text-xs sm:text-sm max-w-xl mx-auto">Toma el cuestionario rápido de hábitos ecológicos y mira en tiempo real cómo se comparan tus respuestas con las estadísticas del grupo de estudio.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Formulario Interactivo de Encuesta -->
+                <div class="lg:col-span-5 bg-slate-50 rounded-3xl border-2 border-slate-800 p-6 shadow-sm space-y-6">
+                    <div class="flex items-center gap-2 border-b border-slate-200 pb-3">
+                        <span class="text-lg">📋</span>
+                        <h4 class="font-extrabold text-slate-900 text-sm uppercase">Simulador de Encuesta</h4>
+                    </div>
+
+                    <form id="eco-survey" class="space-y-4 text-xs">
+                        
+                        <!-- Pregunta 1 -->
+                        <div class="space-y-2">
+                            <label class="font-extrabold text-slate-800 block">1. ¿Cuál es el principal problema ambiental en tu comunidad?</label>
+                            <div class="space-y-1.5 pl-1">
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q1" value="basura" checked class="text-petElectric focus:ring-sky-500"> Acumulación de Basura</label>
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q1" value="agua" class="text-petElectric focus:ring-sky-500"> Contaminación de Agua</label>
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q1" value="tala" class="text-petElectric focus:ring-sky-500"> Tala de Árboles / Falta de flora</label>
+                            </div>
+                        </div>
+
+                        <!-- Pregunta 2 -->
+                        <div class="space-y-2">
+                            <label class="font-extrabold text-slate-800 block">2. En tu hogar, ¿separan los residuos de basura?</label>
+                            <div class="space-y-1.5 pl-1">
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2" value="siempre" checked class="text-petElectric focus:ring-sky-500"> Sí, Siempre</label>
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2" value="aveces" class="text-petElectric focus:ring-sky-500"> A veces</label>
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q2" value="nunca" class="text-petElectric focus:ring-sky-500"> No, Nunca</label>
+                            </div>
+                        </div>
+
+                        <!-- Pregunta 3 -->
+                        <div class="space-y-2">
+                            <label class="font-extrabold text-slate-800 block">3. ¿Qué haces con los envases de PET vacíos?</label>
+                            <div class="space-y-1.5 pl-1">
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q3" value="tirar" checked class="text-petElectric focus:ring-sky-500"> Los tiro directo a la basura</label>
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q3" value="reciclar" class="text-petElectric focus:ring-sky-500"> Los separo para reciclaje</label>
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q3" value="reutilizar" class="text-petElectric focus:ring-sky-500"> Los reutilizo en casa</label>
+                            </div>
+                        </div>
+
+                        <!-- Pregunta 4 -->
+                        <div class="space-y-2">
+                            <label class="font-extrabold text-slate-800 block">4. ¿Has notado cambios drásticos en el clima local?</label>
+                            <div class="space-y-1.5 pl-1">
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q4" value="mucho" checked class="text-petElectric focus:ring-sky-500"> Sí, muchos cambios</label>
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q4" value="algunos" class="text-petElectric focus:ring-sky-500"> Algunos cambios</label>
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q4" value="ninguno" class="text-petElectric focus:ring-sky-500"> Ninguno</label>
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="submitInteractiveSurvey()" class="w-full bg-petElectric border-2 border-slate-800 text-white py-3 rounded-2xl font-bold hover:bg-sky-700 active:scale-95 transition-all shadow-md">
+                            <i class="fa-solid fa-chart-pie"></i> Analizar y Comparar Datos
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Gráficas Estadísticas del Grupo de Trabajo (Lado Derecho) -->
+                <div class="lg:col-span-7 space-y-6">
+                    
+                    <!-- Tarjeta de Alerta de Impacto -->
+                    <div id="survey-feedback" class="bg-sky-50 rounded-2xl p-4 border-2 border-slate-800 text-xs text-slate-700 leading-relaxed flex items-center gap-3">
+                        <span class="text-3xl">💡</span>
+                        <p>Completa el cuestionario rápido de la izquierda y haz clic en "Analizar" para activar un análisis comparativo personalizado entre tus respuestas y los datos reales del grupo.</p>
+                    </div>
+
+                    <!-- Panel de Gráficas -->
+                    <div class="bg-slate-50 rounded-3xl border-2 border-slate-800 p-6 space-y-6 shadow-sm">
+                        
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                            <h4 class="font-bold text-sm uppercase text-slate-800">Estadísticas Oficiales del Proyecto</h4>
+                            <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest bg-slate-200 px-2 py-0.5 rounded-full">31 encuestados</span>
+                        </div>
+
+                        <!-- Grid de dos columnas para visualizar gráficos -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            
+                            <!-- Gráfica 1 -->
+                            <div class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col justify-between h-[230px]">
+                                <h5 class="text-[10px] font-black uppercase text-slate-500 text-center tracking-wide">1. Problema Ambiental Principal</h5>
+                                <div class="relative w-full h-[150px] mx-auto">
+                                    <canvas id="live-chart-problema"></canvas>
+                                </div>
+                                <p class="text-[10px] text-slate-400 text-center">La basura domina con un contundente <strong>75%</strong>.</p>
+                            </div>
+
+                            <!-- Gráfica 2 -->
+                            <div class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col justify-between h-[230px]">
+                                <h5 class="text-[10px] font-black uppercase text-slate-500 text-center tracking-wide">2. Separación de Residuos</h5>
+                                <div class="relative w-full h-[150px] mx-auto">
+                                    <canvas id="live-chart-separacion"></canvas>
+                                </div>
+                                <p class="text-[10px] text-slate-400 text-center">Un preocupante <strong>30% nunca</strong> separa residuos.</p>
+                            </div>
+
+                            <!-- Gráfica 3 -->
+                            <div class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col justify-between h-[230px]">
+                                <h5 class="text-[10px] font-black uppercase text-slate-500 text-center tracking-wide">3. Tratamiento y Manejo del PET</h5>
+                                <div class="relative w-full h-[150px] mx-auto">
+                                    <canvas id="live-chart-pet"></canvas>
+                                </div>
+                                <p class="text-[10px] text-slate-400 text-center">El <strong>55% desecha</strong> las botellas directo al vertedero.</p>
+                            </div>
+
+                            <!-- Gráfica 4 -->
+                            <div class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col justify-between h-[230px]">
+                                <h5 class="text-[10px] font-black uppercase text-slate-500 text-center tracking-wide">4. Percepción del Cambio Climático</h5>
+                                <div class="relative w-full h-[150px] mx-auto">
+                                    <canvas id="live-chart-clima"></canvas>
+                                </div>
+                                <p class="text-[10px] text-slate-400 text-center">El <strong>65% de la comunidad</strong> reporta fuertes cambios.</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN 6: CONCLUSIÓN DE FASE & HISTORIA DE DATOS -->
+    <section class="py-16 bg-slate-100 border-t-2 border-slate-200">
+        <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
+            <span class="text-3xl">🌊</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">"Nuestro Entorno: Realidad y Cambio"</h2>
+            <p class="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed italic">
+                "Vivimos en un lugar lleno de recursos: agua, tierra y árboles que nos dan vida. Pero al observar lo que pasa, descubrimos que nuestra forma de actuar ha cambiado negativamente el entorno. Los datos que recogimos cuentan nuestra propia historia: sabemos lo que pasa, pero hace falta más educación, mejores servicios públicos y mayor compromiso colectivo para transformar la basura en recursos utilizables."
+            </p>
+            <div class="flex items-center justify-center gap-2">
+                <span class="w-12 h-[2px] bg-slate-300"></span>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Grupo 206 • Conclusión General</span>
+                <span class="w-12 h-[2px] bg-slate-300"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-5xl mx-auto px-4 text-center space-y-4">
+            <p class="text-xs font-extrabold text-slate-200 tracking-widest uppercase">PROYECTO: EL RECICLAJE DEL PET • GRUPO 206</p>
+            <p class="text-[11px] max-w-md mx-auto leading-relaxed">
+                Desarrollado de forma colaborativa por Ashlyn Ximena, Michel, Yaretzi América, Marisol y Alonzo. Herramientas TICCAD aplicadas a la educación ambiental.
+            </p>
+            <div class="pt-4 border-t border-slate-800/80 flex flex-wrap justify-center gap-4 text-[10px]">
+                <span><i class="fa-solid fa-graduation-cap"></i> Colegio Escolar Verde</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-shield"></i> Acceso Abierto</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-cloud-arrow-up"></i> Publicado en Internet Gratis</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIC SCRIPTS -->
+    <script>
+        // DATOS DE LAS DIAPOSITIVAS / PESTAÑAS (Fase 2: Versiones de Narrativas)
+        const versionData = {
+            oral: {
+                transmision: "Se cuenta de persona a persona en reuniones, conversaciones o tradiciones familiares y comunitarias. Usa la voz, gestos y el tono para dar vida a la historia de forma presencial.",
+                caract: "Es flexible y cambiante: cada persona que la cuenta puede modificar detalles, añadir anécdotas o cambiar el lenguaje según su propio público.",
+                proposito: "Transmitir cultura de padres a hijos, conservar valores de la comunidad y enseñar lecciones sobre la naturaleza de forma cercana.",
+                ventajas: "Es muy emotiva, genera conexión social directa, se aprende de memoria con facilidad y mantiene vivas las tradiciones locales.",
+                desventajas: "Puede olvidarse, deformarse o modificarse demasiado con el paso de las generaciones al no quedar registrada."
+            },
+            escrita: {
+                transmision: "Se registra formalmente en papel o soportes físicos. Organizada en texto estructurado con redacción fija. Se difunde en libros, folletos, revistas o documentos.",
+                caract: "Es fija y estable: el contenido no cambia y se mantiene idéntico en todas las copias. Sigue una estructura lógica de párrafos y capítulos.",
+                proposito: "Conservar la historia de forma permanente, difundir conocimientos estructurados y servir de referencia formal para el aprendizaje.",
+                ventajas: "Es muy precisa, sirve como fuente de consulta permanente y estable en el tiempo, y transmite ideas de forma lógica.",
+                desventajas: "Es estática, no se puede modificar rápidamente para corregir errores y depende de la distribución física de materiales."
+            },
+            digital: {
+                transmision: "Se comparte por medios electrónicos: páginas web, redes sociales, videos, audios o nubes. Combina textos con recursos interactivos y multimedia.",
+                caract: "Es altamente dinámica y variada: permite incluir enlaces rápidos, imágenes, audios o actualizaciones en tiempo real sin costo.",
+                proposito: "Informar, educar, generar conciencia rápida y difundir ampliamente un mensaje combinando texto con elementos atractivos.",
+                ventajas: "Tiene un alcance masivo e instantáneo, es atractiva para el público joven, fácil de compartir y se actualiza al instante.",
+                desventajas: "Puede contener información falsa o errónea si no proviene de fuentes seguras, y depende enteramente del acceso a internet."
+            }
+        };
+
+        function switchVersionTab(tabName) {
+            // Clases de Botón Activo / Pasivo
+            ['oral', 'escrita', 'digital'].forEach(t => {
+                const button = document.getElementById(`v-tab-${t}`);
+                if (t === tabName) {
+                    button.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-white text-slate-800 shadow-sm";
+                } else {
+                    button.className = "px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-600 hover:text-slate-800";
+                }
+            });
+
+            // Cambiar textos correspondientes
+            const data = versionData[tabName];
+            document.getElementById('v-transmision').innerText = data.transmision;
+            document.getElementById('v-caract').innerText = data.caract;
+            document.getElementById('v-proposito').innerText = data.proposito;
+            document.getElementById('v-ventajas').innerText = data.ventajas;
+            document.getElementById('v-desventajas').innerText = data.desventajas;
+        }
+
+        // DATOS DE TESTIMONIOS (Fase 3: Diagnóstico)
+        const diagData = {
+            vecino: {
+                title: "Vecino Local",
+                icon: "🏡",
+                subtitle: "Enfoque: Residuos en el Barrio",
+                testimonio: '"La acumulación de basura en las calles y áreas verdes de nuestra colonia nos afecta diariamente, ya que no solo daña la imagen de los parques, sino que genera olores fétidos y plagas de gusanos en temporada de calor."',
+                propuesta: "Colocación urgente de botes separados en los parques vecinales y organizar jornadas comunitarias los fines de semana."
+            },
+            estudiante: {
+                title: "Estudiante Activo",
+                icon: "🎒",
+                subtitle: "Enfoque: Ríos y Canales",
+                testimonio: '"Los canales que cruzan nuestro valle antes eran limpios, pero las fábricas y casas tiran basura y residuos químicos. Al ensuciarlos, los peces y las flores mueren y el agua deja de servir para regar."',
+                propuesta: "Evitar tirar plásticos en las alcantarillas y crear una campaña escolar de reforestación de las orillas del río."
+            },
+            agricultor: {
+                title: "Agricultor de la Zona",
+                icon: "👩‍🌾",
+                subtitle: "Enfoque: Huertos y Agricultura",
+                testimonio: '"En los últimos años sentimos que las lluvias ya no caen a tiempo. Cuando no llueve, las plantas se secan; pero cuando se desborda el río, se inundan nuestras tierras de cultivo por los tapones de basura."',
+                propuesta: "Construcción de huertos urbanos y filtros comunitarios para mantener los drenajes libres de botellas de PET."
+            },
+            trabajador: {
+                title: "Trabajador de Limpieza",
+                icon: "🧹",
+                subtitle: "Enfoque: Reciclaje y separación",
+                testimonio: '"Recogemos toneladas de basura diariamente, pero todo viene revuelto. Si la gente separara sus plásticos PET por separado, nosotros podríamos reciclarlo mejor en lugar de tirarlo en vertederos."',
+                propuesta: "Instalar contenedores de PET en los centros comerciales del municipio para facilitar la recolección selectiva."
+            }
+        };
+
+        function switchDiagnostico(charName) {
+            // Cambiar botones clases
+            ['vecino', 'estudiante', 'agricultor', 'trabajador'].forEach(c => {
+                const btn = document.getElementById(`btn-diag-${c}`);
+                if (c === charName) {
+                    btn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-slate-800 bg-sky-200/60 transition-all flex items-center gap-3 shadow-sm";
+                } else {
+                    btn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-slate-200 bg-white hover:bg-slate-50 transition-all flex items-center gap-3 shadow-sm";
+                }
+            });
+
+            // Cargar datos
+            const data = diagData[charName];
+            document.getElementById('diag-badge-icon').innerText = data.icon;
+            document.getElementById('diag-badge-title').innerText = data.title;
+            document.getElementById('diag-badge-subtitle').innerText = data.subtitle;
+            document.getElementById('diag-testimonio').innerText = data.testimonio;
+            document.getElementById('diag-propuesta').innerText = data.propuesta;
+        }
+
+        // DATOS DE HISTORIAS DE LA ANTOLOGÍA VERDE (Fase 3: Antología)
+        const storyData = {
+            1: {
+                title: "El Guardián del Bosque: Tata Árbol",
+                origin: "Tradición de América Latina",
+                body: '"Se cuenta que en medio de una selva inmensa, vivía Tata Árbol. Tenía el cuerpo formado por raíces y ramas, su cabello era una espesa copa de hojas verdes y sus ojos brillaban entre la maleza. Era el guardián de la selva entera... Quienes tomaban solo frutos y madera que necesitaban eran bien recibidos. En cambio, quienes llegaban con avaricia para quemar o contaminar ríos eran castigados, haciéndolos perderse entre los laberintos de vegetación."',
+                teaching: '"El bosque no es solo un conjunto inerte de plantas, es un ser vivo que nos da la existencia; protegerlo es salvaguardar nuestra propia vida."'
+            },
+            2: {
+                title: "El río que perdió su voz",
+                origin: "Basado en hechos reales de la región",
+                body: '"Hace años, cruzaba el valle un río de agua cristalina y peces coloridos. Pero llegaron fábricas y construyeron casas, arrojando basura y productos químicos en el agua. Cortaron árboles de las orillas y el río enmudeció: se volvió turbio, maloliente y sin vida. Al notar las cosechas secas, los vecinos rectificaron: limpiaron la basura, plantaron árboles y devolvieron la vida al río."',
+                teaching: '"El daño que infligimos a la naturaleza se devuelve de inmediato contra nosotros. Restaurar nuestro entorno es vital para sobrevivir."'
+            },
+            3: {
+                title: "La botella de PET renovada",
+                origin: "Relato ambiental de reciclaje tecnológico",
+                body: '"Una pequeña botella usada de refresco iba a terminar en el vertedero. Sin embargo, unos estudiantes la recolectaron en un contenedor especial escolar. En la planta, se trituró en finas hojuelas y se fundió para convertirse en el hilo textil de una camiseta deportiva nueva. Lo que iba a ser basura se convirtió en valor útil."',
+                teaching: '"El PET no es basura, sino un recurso reutilizable muy valioso. Reutilizar es evitar el saqueo de recursos fósiles de nuestro planeta."'
+            },
+            4: {
+                title: "Madre Tierra y la Abundancia",
+                origin: "Leyenda tradicional de los pueblos originarios",
+                body: '"La Madre Tierra nos provee generosamente de todo lo necesario: agua, suelo fértil y aire limpio. Los antiguos sabían que si se la trataba con agradecimiento y respeto, ella devolvía alimentos sanos y bosques fértiles. Pero si se la agrede con tala irracional y contaminación desmedida, el suelo se erosiona, el agua se enferma y la vida languidece."',
+                teaching: '"El respeto, la gratitud y la mesura ante la generosidad de la tierra son los únicos valores válidos para un desarrollo sano."'
+            }
+        };
+
+        function switchStory(storyId) {
+            // Cambiar clases de botones laterales
+            [1, 2, 3, 4].forEach(id => {
+                const btn = document.getElementById(`btn-story-${id}`);
+                if (id === storyId) {
+                    btn.className = "text-left py-2 px-3.5 rounded-xl border-2 border-slate-800 bg-sky-200 text-xs font-extrabold text-slate-900 transition-all flex items-center gap-2";
+                } else {
+                    btn.className = "text-left py-2 px-3.5 rounded-xl border-2 border-slate-200 bg-white text-xs font-bold text-slate-600 transition-all flex items-center gap-2";
+                }
+            });
+
+            // Cargar contenido
+            const data = storyData[storyId];
+            document.getElementById('story-origin').innerText = data.origin;
+            document.getElementById('story-title').innerText = data.title;
+            document.getElementById('story-body').innerText = data.body;
+            document.getElementById('story-teaching').innerText = data.teaching;
+        }
+
+        // LÓGICA DE LA ENCUESTA INTERACTIVA Y CARGA DE GRÁFICOS (CHART.JS)
+        let chartProblema, chartSeparacion, chartPet, chartClima;
+
+        function submitInteractiveSurvey() {
+            // Obtener respuestas seleccionadas del simulador
+            const q1 = document.querySelector('input[name="q1"]:checked').value;
+            const q2 = document.querySelector('input[name="q2"]:checked').value;
+            const q3 = document.querySelector('input[name="q3"]:checked').value;
+            const q4 = document.querySelector('input[name="q4"]:checked').value;
+
+            // Alerta personalizada y análisis comparativo
+            const feedbackBox = document.getElementById('survey-feedback');
+            
+            let problemText = q1 === 'basura' ? "Coincides con el 75% de la comunidad escolar: la basura es el problema más grave." : "Seleccionaste una problemática valiosa, aunque en nuestro estudio el 75% de las personas reportó la acumulación de basura como el principal factor dañino.";
+            let sepText = q2 === 'siempre' ? "¡Excelente! Solo el 22% de la gente separa siempre, eres parte de un valioso grupo de cambio." : q2 === 'aveces' ? "Estás con el 48% que lo hace ocasionalmente. ¡Un esfuerzo extra nos llevaría al cambio real!" : "Te unes al 30% que nunca separa. Es crucial implementar botes organizados para facilitarlo.";
+            let petText = q3 === 'tirar' ? "Tiras el PET al vertedero, al igual que el 55% de la comunidad. ¡Esto causa desperdicio inútil!" : "Excelente hábito de reciclaje/reutilización. Ayudas a mitigar ese 55% que lo tira con el desperdicio general.";
+            let climateText = q4 === 'mucho' ? "Coincides con el 65% de las personas que notan una alteración drástica en el clima local." : "Cerca del 65% siente fuertes cambios, tu percepción ayuda a entender el contraste en la zona.";
+
+            feedbackBox.className = "bg-sky-50 rounded-2xl p-5 border-2 border-slate-800 text-xs text-slate-700 leading-relaxed space-y-2";
+            feedbackBox.innerHTML = `
+                <div class="flex items-center gap-2 font-bold text-petNavy text-sm">
+                    <span>💙</span>
+                    <span>Análisis Comparativo Personalizado:</span>
+                </div>
+                <ul class="list-disc pl-4 space-y-1">
+                    <li><strong>Problema:</strong> ${problemText}</li>
+                    <li><strong>Hábito de Separación:</strong> ${sepText}</li>
+                    <li><strong>Manejo de PET:</strong> ${petText}</li>
+                    <li><strong>Cambio Climático:</strong> ${climateText}</li>
+                </ul>
+                <p class="pt-2 font-bold text-[10px] text-sky-800 uppercase tracking-widest"><i class="fa-solid fa-circle-check"></i> Tus datos han sido procesados y comparados con los 31 encuestados reales.</p>
+            `;
+
+            // Efecto de parpadeo en las gráficas para mostrar reactividad
+            const canvases = document.querySelectorAll('canvas');
+            canvases.forEach(canvas => {
+                canvas.style.opacity = '0.3';
+                setTimeout(() => { canvas.style.opacity = '1'; }, 300);
+            });
+        }
+
+        // RENDERIZADO DE LAS CUATRO GRÁFICAS ECOLOGICAS (PALETA DE COLORES AZUL)
+        window.onload = function() {
+            // Chart 1: Problema Ambiental Principal (Basura 75%, Agua 12%, Árboles 10%, Otros 3%)
+            chartProblema = new Chart(document.getElementById('live-chart-problema'), {
+                type: 'pie',
+                data: {
+                    labels: ['Basura (75%)', 'Agua (12%)', 'Tala (10%)', 'Otros (3%)'],
+                    datasets: [{
+                        data: [75, 12, 10, 3],
+                        backgroundColor: ['#1e3a8a', '#3b82f6', '#93c5fd', '#c7d2fe'],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 10,
+                                font: { size: 9, family: 'Quicksand', weight: 'bold' }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Separación de residuos (Siempre 22%, A veces 48%, Nunca 30%)
+            chartSeparacion = new Chart(document.getElementById('live-chart-separacion'), {
+                type: 'bar',
+                data: {
+                    labels: ['Siempre (22%)', 'A veces (48%)', 'Nunca (30%)'],
+                    datasets: [{
+                        label: 'Porcentaje',
+                        data: [22, 48, 30],
+                        backgroundColor: ['#3b82f6', '#93c5fd', '#c7d2fe'],
+                        borderColor: '#1e293b',
+                        borderWidth: 2,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, max: 100, ticks: { font: { size: 8 } } },
+                        x: { ticks: { font: { size: 9, weight: 'bold' } } }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            // Chart 3: Manejo del PET (Tiro con basura: 55%, Separo: 20%, Reutilizo: 18%, Acopio: 7%)
+            chartPet = new Chart(document.getElementById('live-chart-pet'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Tiro (55%)', 'Separo (20%)', 'Reutilizo (18%)', 'Acopio (7%)'],
+                    datasets: [{
+                        data: [55, 20, 18, 7],
+                        backgroundColor: ['#1e3a8a', '#3b82f6', '#93c5fd', '#cbd5e1'],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 10,
+                                font: { size: 8, family: 'Quicksand', weight: 'bold' }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart 4: Cambios en el clima (Muchos 65%, Algunos 25%, Ninguno 10%)
+            chartClima = new Chart(document.getElementById('live-chart-clima'), {
+                type: 'bar',
+                data: {
+                    labels: ['Muchos (65%)', 'Algunos (25%)', 'Ninguno (10%)'],
+                    datasets: [{
+                        label: 'Clima',
+                        data: [65, 25, 10],
+                        backgroundColor: ['#1e3a8a', '#93c5fd', '#e2e8f0'],
+                        borderColor: '#1e293b',
+                        borderWidth: 2,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal bar chart
+                    scales: {
+                        x: { beginAtZero: true, max: 100, ticks: { font: { size: 8 } } },
+                        y: { ticks: { font: { size: 9, weight: 'bold' } } }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        };
+    </script>
+</body>
+</html>
